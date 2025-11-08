@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List FINAL</title>
+<link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+   *{
+    box-sizing: border-box;
+ }
+ 
+ body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    h1 {
+      color: darkblue;
+    }
+
+    #todo-box {
+      background-color: white;
+      padding: 20px;
+      width: 350px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input {
+      width: 70%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: darkblue;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: white;
+      color: darkblue;
+      border: 1px solid darkblue;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 20px;
+      padding: 0;
+    }
+
+    li {
+      background: #f2f2f2;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .icons i {
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: 0.2s;
+    }
+
+    .icons .fa-pen-to-square {
+      color: green;
+    }
+
+    .icons .fa-pen-to-square:hover {
+      color: darkgreen;
+    }
+
+    .icons .fa-trash {
+      color: red;
+    }
+
+    .icons .fa-trash:hover {
+      color: darkred;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>My To-Do List</h1>
+  <div id="todo-box">
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button id="addBtn">Add</button>
+
+    <ul id="taskList"></ul>
+  </div>
+
+  <script src="script.js"> </script>
+
+     <script>  let addBtn = document.getElementById("addBtn");
+    let taskInput = document.getElementById("taskInput");
+    let taskList = document.getElementById("taskList");
+
+    addBtn.addEventListener("click", function() {
+      let taskText = taskInput.value;
+      if (taskText === "") {
+        alert("Please write something!");
+      } else {
+        let li = document.createElement("li");
+        li.innerHTML = `
+          <span>${taskText}</span>
+          <div class="icons">
+            <i class="fa-solid fa-pen-to-square edit"></i>
+            <i class="fa-solid fa-trash delete"></i>
+          </div>
+        `;
+        taskList.appendChild(li);
+        taskInput.value = "";
+
+        // delete
+        li.querySelector(".delete").onclick = function() {
+          li.remove();
+        }
+
+        // edit
+        li.querySelector(".edit").onclick = function() {
+          let newText = prompt("Edit your task:", li.querySelector("span").innerText);
+          if (newText) {
+            li.querySelector("span").innerText = newText;
+          }
+        }
+      }
+    });</script>
+
+</body>
+</html>
+
+
